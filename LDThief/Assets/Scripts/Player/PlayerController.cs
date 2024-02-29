@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
     private PlayerInteract playerInteract;
     [SerializeField] private PlayerMapUI playerMapUI;
     private FirstPersonController firstPersonController;
+    Inventory inventory;
 
     private PlayerActions playerActions = PlayerActions.Normal;
 
     private void Start()
     {
+        inventory = GetComponent<Inventory>();
         _input = GetComponent<StarterAssetsInputs>();
         playerInteract = GetComponent<PlayerInteract>();
         firstPersonController = GetComponent<FirstPersonController>();
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         OnInteract();
         OnMap();
+        OnInventory();
     }
 
     private void OnInteract()
@@ -61,5 +64,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnInventory()
+    {
+        if (_input.inventory && !inventory.playerInventoryUI.IsInventoryOpen)
+        {
+            inventory.playerInventoryUI.Show();
+            _input.inventory = false;
+            
+        }
+        else if(_input.inventory && inventory.playerInventoryUI.IsInventoryOpen)
+        {
+            _input.inventory = false;
+        }
+    }
 
 }

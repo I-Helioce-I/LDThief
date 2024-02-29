@@ -6,12 +6,15 @@ using UnityEngine;
 public class PlayerInventoryUI : MonoBehaviour
 {
     [SerializeField] GameObject maxIngotContainer;
-    
+
 
     [SerializeField] GameObject inventoryContainerUI;
     [SerializeField] TextMeshProUGUI moneyAmount;
     [SerializeField] TextMeshProUGUI goldIngotAmount;
     [SerializeField] Inventory inventory;
+    bool IsInventoryContainerIsOpen;
+
+    public bool IsInventoryOpen { get; private set; }
 
     private void Start()
     {
@@ -20,7 +23,10 @@ public class PlayerInventoryUI : MonoBehaviour
 
     public void Show()
     {
+
+        StopCoroutine(CloseCoroutineInventory());
         inventoryContainerUI.SetActive(true);
+        IsInventoryContainerIsOpen = true;
         StartCoroutine(CloseCoroutineInventory());
     }
 
@@ -32,6 +38,7 @@ public class PlayerInventoryUI : MonoBehaviour
     public void Hide()
     {
         inventoryContainerUI.SetActive(false);
+        IsInventoryContainerIsOpen = false; ;
     }
 
     public void UpdateMoneyAmount()
@@ -39,16 +46,16 @@ public class PlayerInventoryUI : MonoBehaviour
         moneyAmount.text = inventory.Money.ToString();
         Show();
     }
-     
+
     public void UpdateGoldIngotAmount()
     {
-        goldIngotAmount.text = inventory.GoldIngot.ToString();
+        goldIngotAmount.text = string.Concat(inventory.GoldIngot.ToString() + " / " + inventory.MaxGoldIngot.ToString());
         Show();
-
     }
 
     public void ShowMaxIngotMessage()
     {
+        StopCoroutine(CloseCoroutineMaxIngotCapacity());
         maxIngotContainer.SetActive(true);
         StartCoroutine(CloseCoroutineMaxIngotCapacity());
     }
@@ -62,7 +69,7 @@ public class PlayerInventoryUI : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         Hide();
-        
+
     }
 
     public IEnumerator CloseCoroutineMaxIngotCapacity()

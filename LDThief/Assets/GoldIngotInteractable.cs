@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental;
 using UnityEngine;
 
 public class GoldIngotInteractable : MonoBehaviour, IInteractable
@@ -10,12 +11,12 @@ public class GoldIngotInteractable : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        textOut = interactText + amount.ToString();
 
     }
 
     public string GetInteractText()
     {
+        textOut = string.Concat(interactText + " " + amount.ToString());
         return textOut;
     }
 
@@ -27,18 +28,33 @@ public class GoldIngotInteractable : MonoBehaviour, IInteractable
     public void Interact(PlayerInteract playerInteract)
     {
         Inventory inventory = playerInteract.GetComponent<Inventory>();
-        if (inventory.IsMaxIngotReached(amount))
+        if (inventory.IsMaxIngotReached())
         {
             return;
 
         }
-        else if (!inventory.IsMaxIngotReached(amount))
+        else if (!inventory.IsMaxIngotReached())
         {
+            int possibleIngot = inventory.MaxGoldIngot - inventory.GoldIngot;
 
-            inventory.AddGoldIngot(amount);
-            inventory.playerInventoryUI.UpdateGoldIngotAmount();
+            if (amount <= possibleIngot)
+            {
 
-            Destroy(gameObject);
+                inventory.AddGoldIngot(amount);
+                inventory.playerInventoryUI.UpdateGoldIngotAmount();
+                Destroy(gameObject);
+
+            }
+            else if (amount > possibleIngot)
+            {
+                int ingotIn = amount - possibleIngot;
+                amount -= ingotIn;
+
+                inventory.AddGoldIngot(ingotIn);
+                inventory.playerInventoryUI.UpdateGoldIngotAmount();
+
+            }
+
         }
     }
 }

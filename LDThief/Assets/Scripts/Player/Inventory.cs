@@ -10,13 +10,14 @@ public class Inventory : MonoBehaviour
     PlayerController playerController;
     public PlayerInventoryUI playerInventoryUI;
 
-    public int Money {  get { return money; } set { money = value; } }
-    public int GoldIngot {  get { return goldIngot; } set { goldIngot = value; } }
+    public int Money { get { return money; } set { money = value; } }
+    public int GoldIngot { get { return goldIngot; } set { goldIngot = value; } }
+    public int MaxGoldIngot { get { return maxGoldIngot; } set { maxGoldIngot = value; } }
 
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
-    }   
+    }
 
     public void AddMoney(int moneyIn)
     {
@@ -27,16 +28,16 @@ public class Inventory : MonoBehaviour
         goldIngot += goldIngotIn;
     }
 
-    public bool IsMaxIngotReached(int ingotIn)
+    public bool IsMaxIngotReached()
     {
-        if(goldIngot >= maxGoldIngot)
+        if (goldIngot >= maxGoldIngot)
         {
             playerInventoryUI.ShowMaxIngotMessage();
             return true;
         }
 
-        
         return false;
-        return true;
+
     }
+
 }

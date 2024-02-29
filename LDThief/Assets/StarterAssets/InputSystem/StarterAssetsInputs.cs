@@ -17,6 +17,7 @@ public class StarterAssetsInputs : MonoBehaviour
     public bool attack;
     public bool map;
     public bool shoot;
+    public bool inventory;
 
     [Header("Movement Settings")]
 
@@ -73,6 +74,11 @@ public class StarterAssetsInputs : MonoBehaviour
     {
         MapInput(value.isPressed);
     }
+
+    public void OnInventory(InputValue value)
+    {
+        InventoryInput(value.isPressed);
+    }
 #endif
 
 
@@ -117,6 +123,11 @@ public class StarterAssetsInputs : MonoBehaviour
     public void MapInput(bool newAttackDirection)
     {
         map = newAttackDirection;
+    }
+
+    public void InventoryInput(bool newAttackDirection)
+    {
+        inventory = newAttackDirection;
     }
 
 
