@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float speed = 5f;
     private void Start()
     {
-        
+        Destroy(gameObject, 10f);
     }
 
     private void Update()

@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
     private PlayerInteract playerInteract;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform originTransform;
+    [SerializeField] private float damageArrow;
 
     [SerializeField] private float coolDown;
     [SerializeField] private float timerShoot;
@@ -47,6 +48,7 @@ public class PlayerCombat : MonoBehaviour
         if (_input.shoot && timerShoot <= 0)
         {
             GameObject projectileInstance = Instantiate(projectilePrefab, originTransform.transform.position, originTransform.rotation);
+            projectileInstance.GetComponent<Damager>().Damage = damageArrow;
             _input.shoot = false;
             timerShoot = coolDown;
         }

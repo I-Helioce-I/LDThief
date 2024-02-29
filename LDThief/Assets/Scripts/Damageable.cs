@@ -38,6 +38,6 @@ public class Damageable : MonoBehaviour
 
     private void Die()
     {
-
+        Destroy(gameObject);
     }
 }

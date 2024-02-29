@@ -5,10 +5,10 @@ using UnityEngine;
 public class MoneyInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] string interactText;
+    [SerializeField] int amount;
 
     public string GetInteractText()
     {
-        Debug.Log("Detected");
         return interactText;
     }
 
@@ -19,6 +19,10 @@ public class MoneyInteractable : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteract playerInteract)
     {
+        Inventory inventory = playerInteract.GetComponent<Inventory>();
+        inventory.AddMoney(amount);
+        inventory.playerInventoryUI.UpdateMoneyAmount();
+        
         Destroy(gameObject);
     }
 }

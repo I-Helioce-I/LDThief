@@ -21,7 +21,7 @@ public class EnemyMovementController : MonoBehaviour
     private void Start()
     {
         enemyController = GetComponent<EnemyController>();
-        if(waypoints == null)
+        if(waypoints.Count == 0)
         {
             enemyBehaviour = EnemyBehaviour.Static;
         }

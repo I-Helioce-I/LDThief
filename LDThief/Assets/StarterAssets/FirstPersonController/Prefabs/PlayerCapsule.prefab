@@ -93,7 +93,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6b911390c5825014e8377183a7837d3f, type: 2}
+  - {fileID: 2100000, guid: 5a7ca585a9b2b3c4587125916713263d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,6 +155,9 @@ GameObject:
   - component: {fileID: 8616685848737228376}
   - component: {fileID: 6953135087073597849}
   - component: {fileID: 4508649929744633009}
+  - component: {fileID: 4745994212585653070}
+  - component: {fileID: 517251504277278985}
+  - component: {fileID: 273256615215619701}
   m_Layer: 8
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -413,7 +416,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af6233af618e1a4691a90bcf403ad92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 1516184264786101940, guid: 2b8f5cb2af472784a9ec7073e8125c25,
+    type: 3}
   originTransform: {fileID: 0}
-  coolDown: 0
+  damageArrow: 50
+  coolDown: 2.5
   timerShoot: 0
+--- !u!114 &4745994212585653070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0092d43b58a3f83499ebb07049a3062e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 100
+--- !u!136 &517251504277278985
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &273256615215619701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4aea5c81a47b24ea099fd1d324ab8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 0
+  goldIngot: 0
+  playerInventoryUI: {fileID: 0}
