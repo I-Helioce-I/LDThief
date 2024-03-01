@@ -289,6 +289,7 @@ MonoBehaviour:
   attack: 0
   map: 0
   shoot: 0
+  inventory: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -473,4 +474,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money: 0
   goldIngot: 0
+  maxGoldIngot: 2
   playerInventoryUI: {fileID: 0}
