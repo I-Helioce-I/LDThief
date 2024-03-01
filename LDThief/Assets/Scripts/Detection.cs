@@ -10,9 +10,9 @@ public enum Entity
 public class Detection : MonoBehaviour
 {
     [SerializeField] Entity currentEntity = Entity.Enemy;
-    [SerializeField] List<Detection> entities = new List<Detection>();
+    [SerializeField] public List<Detection> entities = new List<Detection>();
 
-    [SerializeField] Detection currentTarget;
+    [SerializeField] GameObject currentTarget;
 
     [Header("Stats")]
     [SerializeField] float radius;
@@ -27,6 +27,10 @@ public class Detection : MonoBehaviour
     {
         Detect();
         CheckForSound();
+        if(currentTarget != null)
+        {
+            transform.LookAt(currentTarget.transform.position);
+        }
     }
 
 
@@ -46,6 +50,26 @@ public class Detection : MonoBehaviour
                 }
 
             }
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            currentTarget = other.gameObject;
+            GetComponent<EnemyMovementController>().isMoving = false;
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            currentTarget = null;
+            GetComponent<EnemyMovementController>().isMoving = true;
+
         }
     }
 

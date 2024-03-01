@@ -9,12 +9,15 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform originTransform;
     [SerializeField] private float damageArrow;
+    [SerializeField] private float closeCombnatDamages;
 
     [SerializeField] private float coolDown;
     [SerializeField] private float timerShoot;
+    [SerializeField] Detection myDetection;
 
     private void Start()
     {
+        myDetection = GetComponent<Detection>();
         _input = GetComponent<StarterAssetsInputs>();
         playerInteract = GetComponent<PlayerInteract>();
         timerShoot = coolDown;
@@ -37,7 +40,13 @@ public class PlayerCombat : MonoBehaviour
     {
         if (_input.attack)
         {
-            Debug.Log("Attack");
+
+            if (myDetection.entities != null && myDetection.entities.Count > 0)
+            {
+                Debug.Log("Attack");
+
+                myDetection.entities[0].GetComponent<Damageable>().TakeDamage(closeCombnatDamages);
+            }
             _input.attack = false;
         }
     }

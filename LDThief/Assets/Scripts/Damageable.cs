@@ -10,14 +10,19 @@ public class Damageable : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    private void Update()
+    {
+        if (currentHealth < 0)
+        {
+            Die();
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
 
-        if(currentHealth < 0)
-        {
-            Die();
-        }
+        
     }
 
     public float GetHealth()

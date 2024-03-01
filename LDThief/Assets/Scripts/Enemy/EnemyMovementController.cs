@@ -14,6 +14,7 @@ public class EnemyMovementController : MonoBehaviour
     [SerializeField] List<GameObject> waypoints = new List<GameObject>();
     [SerializeField] List<Vector3> waypointsTransform = new List<Vector3>();
     [SerializeField] EnemyBehaviour enemyBehaviour = EnemyBehaviour.Static;
+    public bool isMoving;
 
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private int currentPatrolIndex = 0;
@@ -37,7 +38,7 @@ public class EnemyMovementController : MonoBehaviour
 
     private void Update()
     {
-        if(enemyBehaviour == EnemyBehaviour.Patroling)
+        if(enemyBehaviour == EnemyBehaviour.Patroling && isMoving)
         {
             Move();
         }
