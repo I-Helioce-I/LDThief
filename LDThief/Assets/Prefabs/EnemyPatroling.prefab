@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 8131968552683399426}
   - component: {fileID: 8926220555206690169}
   - component: {fileID: 5525078390571088667}
+  - component: {fileID: 841245313263772885}
   m_Layer: 0
   m_Name: EnemyPatroling
   m_TagString: Untagged
@@ -504,6 +505,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &841245313263772885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232190734211943926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b312b4378f19a94e994223a61ac2877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEntity: 1
+  entities: []
 --- !u!1 &7001649284207179594
 GameObject:
   m_ObjectHideFlags: 0
