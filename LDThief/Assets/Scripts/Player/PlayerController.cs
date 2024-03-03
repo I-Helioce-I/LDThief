@@ -86,6 +86,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if(imagesHealthBar.Count <= 0)
+        {
+            deathText.gameObject.SetActive(true);
+
+        }
+
     }
      
     public void OnInventory()
