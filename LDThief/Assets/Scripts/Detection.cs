@@ -10,7 +10,7 @@ public enum Entity
 public class Detection : MonoBehaviour
 {
     [SerializeField] float amountOfSoundToDetect;
-    [SerializeField] Entity currentEntity = Entity.Enemy;
+    [SerializeField] public Entity currentEntity = Entity.Enemy;
     [SerializeField] public List<Detection> entities = new List<Detection>();
 
     [SerializeField] GameObject currentTarget;
@@ -19,17 +19,13 @@ public class Detection : MonoBehaviour
     [SerializeField] float radius;
 
 
-    private void Start()
-    {
-
-    }
 
     private void Update()
     {
         Detect();
-        CheckForSound();
-        if(currentTarget != null)
+        if (currentTarget != null)
         {
+            Attack();
             transform.LookAt(currentTarget.transform.position);
         }
     }
@@ -53,13 +49,13 @@ public class Detection : MonoBehaviour
             }
         }
 
-        if(entities.Count > 0)
+        if (entities.Count > 0)
         {
             foreach (Detection detection in entities)
             {
-                if(detection.currentEntity == Entity.Player)
+                if (detection.currentEntity == Entity.Player)
                 {
-                    if(detection.GetComponent<Bruit>().actualNoise >= amountOfSoundToDetect)
+                    if (detection.GetComponent<Bruit>().actualNoise >= amountOfSoundToDetect)
                     {
                         currentTarget = detection.gameObject;
                     }
@@ -70,7 +66,7 @@ public class Detection : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             currentTarget = other.gameObject;
             GetComponent<EnemyMovementController>().isMoving = false;
@@ -88,8 +84,28 @@ public class Detection : MonoBehaviour
         }
     }
 
-    public void CheckForSound()
+    public void Attack()
     {
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, 5 * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (currentEntity == Entity.Enemy)
+        {
+            if (currentEntity == Entity.Enemy && currentTarget != null)
+            {
+                transform.localPosition -= Vector3.back * 5;
+                GetComponent<Rigidbody>().AddRelativeForce(Vector3.back * 5, ForceMode.Impulse);
+
+                currentTarget.GetComponent<PlayerController>().RemoveHealth();
+
+
+            }
+
+        }
+
 
     }
 
