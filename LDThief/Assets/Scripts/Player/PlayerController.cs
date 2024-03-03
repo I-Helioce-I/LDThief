@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public enum PlayerActions
@@ -14,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerMapUI playerMapUI;
     private FirstPersonController firstPersonController;
     Inventory inventory;
+
+    [SerializeField] List<Image> imagesHealthBar;
+    [SerializeField] TextMeshProUGUI deathText;
 
     private PlayerActions playerActions = PlayerActions.Normal;
 
@@ -43,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMap()
     {
-        if( _input.map)
+        if (_input.map)
         {
             if (playerActions == PlayerActions.Normal)
             {
@@ -53,7 +59,7 @@ public class PlayerController : MonoBehaviour
                 firstPersonController.enabled = false;
 
             }
-            else if(playerActions == PlayerActions.Map)
+            else if (playerActions == PlayerActions.Map)
             {
                 playerMapUI.HideMap();
                 _input.map = false;
@@ -64,15 +70,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void RemoveHealth()
+    {
+        int maxHearth = imagesHealthBar.Count;
+        Debug.Log("remove" + maxHearth);
+
+        if (imagesHealthBar.Count > 0)
+        {
+            Destroy(imagesHealthBar[maxHearth - 1]);
+            imagesHealthBar.Remove(imagesHealthBar[maxHearth - 1]);
+        }
+        else
+        {
+            deathText.gameObject.SetActive(true);
+            return;
+        }
+
+        if(imagesHealthBar.Count <= 0)
+        {
+            deathText.gameObject.SetActive(true);
+
+        }
+
+    }
+     
     public void OnInventory()
     {
         if (_input.inventory && !inventory.playerInventoryUI.IsInventoryOpen)
         {
             inventory.playerInventoryUI.Show();
             _input.inventory = false;
-            
+
         }
-        else if(_input.inventory && inventory.playerInventoryUI.IsInventoryOpen)
+        else if (_input.inventory && inventory.playerInventoryUI.IsInventoryOpen)
         {
             _input.inventory = false;
         }
