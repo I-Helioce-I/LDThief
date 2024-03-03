@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 
 public enum PlayerState
 {
-    normal,
-    crouch
+    Normal,
+    Crouch,
+    Sprint
 }
 
 
@@ -17,6 +18,13 @@ public enum PlayerState
 #endif
 public class FirstPersonController : MonoBehaviour
 {
+    [Header("Added")]
+    [SerializeField] Bruit noiseSystem;
+    [SerializeField] float crouchNoise;
+    [SerializeField] float walkNoise;
+    [SerializeField] float sprintNoise;
+
+
     [Header("Player")]
     [Tooltip("Move speed of the character in m/s")]
     public float MoveSpeed = 4.0f;
@@ -71,7 +79,7 @@ public class FirstPersonController : MonoBehaviour
     private float _fallTimeoutDelta;
 
     // forCrouching
-    public PlayerState PlayerState = PlayerState.normal;
+    public PlayerState playerState = PlayerState.Normal;
     private float defaultScale;
 
 
@@ -143,7 +151,11 @@ public class FirstPersonController : MonoBehaviour
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
         Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+
+
     }
+
+
 
     private void CameraRotation()
     {
@@ -171,13 +183,16 @@ public class FirstPersonController : MonoBehaviour
     {
         float targetSpeed = MoveSpeed;
         // set target speed based on move speed, sprint speed and if sprint is pressed
-        if (PlayerState == PlayerState.normal)
+        if (playerState == PlayerState.Normal)
         {
             targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float noiseToSend = _input.sprint ? sprintNoise : walkNoise;
+            noiseSystem.ReceiveNoise(noiseToSend);
         }
-        else if (PlayerState == PlayerState.crouch)
+        else if (playerState == PlayerState.Crouch)
         {
             targetSpeed = MoveSpeed / 2;
+            noiseSystem.ReceiveNoise(crouchNoise);
         }
 
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
@@ -216,6 +231,11 @@ public class FirstPersonController : MonoBehaviour
         {
             // move
             inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+
+        }
+        else
+        {
+            noiseSystem.actualNoise = 0;
         }
 
         // move the player
@@ -274,18 +294,18 @@ public class FirstPersonController : MonoBehaviour
     {
         if (_input.crouch)
         {
-            if (PlayerState == PlayerState.normal)
+            if (playerState == PlayerState.Normal)
             {
                 transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
-                PlayerState = PlayerState.crouch;
+                playerState = PlayerState.Crouch;
             }
         }
         else if (!_input.crouch)
         {
-            if (PlayerState == PlayerState.crouch)
+            if (playerState == PlayerState.Crouch)
             {
                 transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
-                PlayerState = PlayerState.normal;
+                playerState = PlayerState.Normal;
             }
         }
     }

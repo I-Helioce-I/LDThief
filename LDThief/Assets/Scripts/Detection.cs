@@ -9,6 +9,7 @@ public enum Entity
 }
 public class Detection : MonoBehaviour
 {
+    [SerializeField] float amountOfSoundToDetect;
     [SerializeField] Entity currentEntity = Entity.Enemy;
     [SerializeField] public List<Detection> entities = new List<Detection>();
 
@@ -49,6 +50,20 @@ public class Detection : MonoBehaviour
                     entities.Add(detection);
                 }
 
+            }
+        }
+
+        if(entities.Count > 0)
+        {
+            foreach (Detection detection in entities)
+            {
+                if(detection.currentEntity == Entity.Player)
+                {
+                    if(detection.GetComponent<Bruit>().actualNoise >= amountOfSoundToDetect)
+                    {
+                        currentTarget = detection.gameObject;
+                    }
+                }
             }
         }
     }
