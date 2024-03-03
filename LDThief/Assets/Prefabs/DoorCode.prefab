@@ -50,6 +50,7 @@ MonoBehaviour:
   minigameUI: {fileID: 0}
   theGoodCode: 1234
   gameObjectDisaperaingOnUnlock: {fileID: 0}
+  isUnlock: 0
 --- !u!65 &6658040342291449895
 BoxCollider:
   m_ObjectHideFlags: 0

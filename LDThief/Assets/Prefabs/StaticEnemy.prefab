@@ -8,6 +8,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 690180933348975374, guid: 2430fc10967904947a405bdb155d419e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 690180933348975374, guid: 2430fc10967904947a405bdb155d419e,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 505
+      objectReference: {fileID: 0}
     - target: {fileID: 1323505580884150672, guid: 2430fc10967904947a405bdb155d419e,
         type: 3}
       propertyPath: waypoints.Array.size
@@ -42,6 +52,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StaticEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689646081028204385, guid: 2430fc10967904947a405bdb155d419e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8270000035457062030, guid: 2430fc10967904947a405bdb155d419e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9034345433443522571, guid: 2430fc10967904947a405bdb155d419e,
         type: 3}
